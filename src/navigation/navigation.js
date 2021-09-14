@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 
 const authScreens = {
   TestCalendar: TestCalendarScreen,
-  // LiveSearch: LiveSearchScreen, //SignInScreen
+  // LiveSearch: LiveSearchScreen,
 };
 
 const homeScreens = {
