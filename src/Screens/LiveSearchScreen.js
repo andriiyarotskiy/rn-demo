@@ -7,7 +7,6 @@ import {
   Text,
   Platform,
   TouchableWithoutFeedback,
-  Button,
   Keyboard,
   TouchableOpacity,
   useWindowDimensions,
@@ -18,31 +17,6 @@ const LiveSearchScreen = ({navigation}) => {
   const [input, setInput] = useState('');
   const [results, setResults] = useState([]);
   const [searchTimer, setSearchTimer] = useState(null);
-  const [bottomHeight, setBottomHeight] = useState(true);
-  // console.log('results', results.length);
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      showKeyboard,
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      hideKeyboard,
-    );
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  });
-
-  const showKeyboard = () => {
-    setBottomHeight(false);
-  };
-
-  const hideKeyboard = () => {
-    setBottomHeight(true);
-  };
 
   const renderItemList = ({item}) => {
     return (
@@ -151,25 +125,8 @@ const styles = StyleSheet.create({
   inner: {
     width: '92%',
     alignSelf: 'center',
-    // paddingHorizontal: 24,
     flex: 1,
-    // justifyContent: 'space-around',
   },
-  // header: {
-  //   fontSize: 36,
-  //   marginBottom: 48,
-  // },
-  // textInput: {
-  //   height: 40,
-  //   borderColor: '#000000',
-  //   borderBottomWidth: 1,
-  //   marginBottom: 36,
-  // },
-  // btnContainer: {
-  //   backgroundColor: 'white',
-  //   marginTop: 12,
-  // },
-  // my style
   list: {
     flex: 0.62,
     marginBottom: '4%',
@@ -187,7 +144,6 @@ const styles = StyleSheet.create({
   },
 
   inputWrapper: {
-    // marginTop: '5%',
     marginBottom: '10%',
   },
   inputStyle: {

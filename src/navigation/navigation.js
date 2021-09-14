@@ -28,7 +28,7 @@ const NavStack = () => {
         // Use some screens conditionally based on some condition
         ...userScreens,
       }).map(([name, component]) => (
-        <Stack.Screen key={name} name={name} component={component}/>
+        <Stack.Screen key={name} name={name} component={component} />
       ))}
     </Stack.Navigator>
   );
