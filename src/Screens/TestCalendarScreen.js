@@ -1,15 +1,33 @@
-import {Button, Text, View, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Calendar from '../components/Calendar';
+import InputTimePicker from '../components/InputTimePicker';
 
 const TestCalendarScreen = ({navigation}) => {
+  const onChangeTextMin = text => {
+    console.log('text min', text);
+  };
+
+  const onChangeTextMax = text => {
+    console.log('text max', text);
+  };
+
   return (
     <View style={{flex: 1}}>
       <Text>Home Screen</Text>
-      <View style={SignInScreenStyle.emptyContent} />
-      <View style={SignInScreenStyle.container}>
-        <View style={SignInScreenStyle.content}>
-          <Calendar />
+      <View style={styles.emptyContent} />
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <InputTimePicker
+            placeholder="00:00 min"
+            description="min"
+            onChangeText={onChangeTextMin}
+          />
+          <InputTimePicker
+            placeholder="00:00 max"
+            description="max"
+            onChangeText={onChangeTextMax}
+          />
+          {/*<Calendar />*/}
         </View>
       </View>
       {/*<Button title="Go to FreePlay" onPress={() => navigation.navigate('Home')}/>*/}
@@ -18,7 +36,7 @@ const TestCalendarScreen = ({navigation}) => {
 };
 export default TestCalendarScreen; //'horizontalList'
 
-const SignInScreenStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   emptyContent: {
     flex: 0.35,
   },
@@ -36,5 +54,7 @@ const SignInScreenStyle = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: 'green',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

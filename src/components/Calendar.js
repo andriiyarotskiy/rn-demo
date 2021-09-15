@@ -91,16 +91,13 @@ const Calendar = () => {
     const textStyle = {
       fontSize: 18,
       fontWeight: 'bold',
-      // paddingTop: 10,
-      // paddingBottom: 10,
-      color: '#5E60CE',
-      // paddingRight: 5,
+      color: '#fff',
     };
 
     return (
       <View style={styles.header}>
         <Text style={[styles.month, textStyle]}>{`${month}`}</Text>
-        <Text style={[styles.year, textStyle]}>{selected ? selected : year}</Text>
+        {/*<Text style={[styles.year, textStyle]}>{selected ? selected : year}</Text>*/}
       </View>
     );
   };
@@ -124,7 +121,7 @@ const Calendar = () => {
   };
 
   return (
-    <View style={{width: '100%', height: '90%', alignItems: 'center'}}>
+    <View style={{width: '100%', height: '80%', alignItems: 'center'}}>
       <GestureRecognizer
         onSwipe={(gestureName, gestureState) => {
           const {dx} = gestureState;
@@ -171,25 +168,25 @@ const Calendar = () => {
 };
 
 const theme = {
-  calendarBackground: 'grey',
-  dotColor: 'red',
+  calendarBackground: 'red',
+  dotColor: 'purple',
   selectedDotColor: '#ffffff',
-  'stylesheet.calendar.header': {
-    dayHeader: {
-      fontWeight: '600',
-      color: '#48BFE3',
-    },
-  },
-  'stylesheet.day.basic': {
-    today: {
-      borderColor: '#48BFE3',
-      borderWidth: 0.8,
-    },
-    todayText: {
-      color: '#5390D9',
-      fontWeight: '800',
-    },
-  },
+  // 'stylesheet.calendar.header': {
+  //   dayHeader: {
+  //     fontWeight: '600',
+  //     color: '#48BFE3',
+  //   },
+  // },
+  // 'stylesheet.day.basic': {
+  //   today: {
+  //     borderColor: '#48BFE3',
+  //     borderWidth: 0.8,
+  //   },
+  //   todayText: {
+  //     color: '#5390D9',
+  //     fontWeight: '800',
+  //   },
+  // },
 };
 
 export default Calendar;
@@ -199,22 +196,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-    // backgroundColor: 'red',
-    // marginTop: 10,
-    // marginBottom: 10,
-  },
-  month: {
-    // marginLeft: 5,
-  },
-  year: {
-    // marginRight: 5,
   },
 
   calendarDay: {
     backgroundColor: 'orange',
     width: 36,
     height: 32,
-    // marginVertical: -3,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
