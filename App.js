@@ -3,6 +3,7 @@ import React from 'react';
 // import DraggableView from './src/Tutorial/DraggableView';
 import {NavigationContainer} from '@react-navigation/native';
 import NavStack from './src/navigation/navigation';
+import {LogBox} from 'react-native';
 
 const App: () => Node = () => {
   return (
@@ -16,4 +17,4 @@ const App: () => Node = () => {
 
 export default App;
 
-console.disableYellowBox = true;
+LogBox.ignoreAllLogs(true);
