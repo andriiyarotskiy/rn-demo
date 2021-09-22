@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Dimensions} from 'react-native';
-import MapView, {LatLng, Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
+import {Dimensions, Text, View, StyleSheet} from 'react-native';
+import MapView, {Marker, Polyline} from 'react-native-maps';
 import decode from '@mapbox/polyline';
+import LinearGradient from 'react-native-linear-gradient';
+import RunningIcon from '../components/icon/RunningIcon';
 
 const mapStyle = require('../Screens/styles/MapStyle.json');
 
@@ -28,13 +30,12 @@ const getDirections = async (startLoc, destinationLoc) => {
     let respJson = await resp.json();
 
     let points = decode(respJson.routes[0].overview_polyline.points);
-    let coords = points.map((point, index) => {
+    return points.map((point, index) => {
       return {
         latitude: point[0],
         longitude: point[1],
       };
     });
-    return coords;
   } catch (error) {
     return [
       {latitude: 37.8025259, longitude: -122.4351431},
@@ -73,51 +74,91 @@ const TestMapScreen = () => {
           borderRadius: 16,
           overflow: 'hidden',
         }}>
-        <MapView
-          style={{width: '100%', height: '100%'}}
-          customMapStyle={mapStyle}
-          // mapPadding={{left: 1000}} //remove Google title
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-          }}>
-          {coords.length > 0 && (
-            <Polyline
-              // lineJoin="miter"
-              coordinates={coords}
-              strokeColor="#93CD4B" // fallback for when `strokeColors` is not supported by the map-provider
-              strokeColors={[
-                '#7F0000',
-                '#febaba', // no color, creates a "long" gradient between the previous and next coordinate
-                '#B24112',
-                '#E5845C',
-                '#238C23',
-                // '#7F0000',
-              ]}
-              strokeWidth={6}
-            />
-          )}
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+          style={StyleSheet.absoluteFillObject}
+          colors={[
+            'rgba(25,27,32,1)',
+            'rgba(25,27,32,0.7)',
+            'transparent',
+            'transparent',
+          ]}>
+          <MapView
+            style={{width: '100%', height: '100%', zIndex: -1}}
+            customMapStyle={mapStyle}
+            // mapPadding={{left: 1000}} //remove Google title
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: LATITUDE_DELTA,
+              longitudeDelta: LONGITUDE_DELTA,
+            }}>
+            {coords.length > 0 && (
+              <Polyline
+                coordinates={coords}
+                strokeColor="#93CD4B" // fallback for when `strokeColors` is not supported by the map-provider
+                strokeColors={[
+                  '#7F0000',
+                  '#febaba', // no color, creates a "long" gradient between the previous and next coordinate
+                  '#B24112',
+                  '#E5845C',
+                  '#238C23',
+                  // '#7F0000',
+                ]}
+                strokeWidth={6}
+              />
+            )}
 
-          <Marker
-            coordinate={{latitude: 37.7948605, longitude: -122.4596065}}
-            flat
-            anchor={{x: 0.5, y: 0.5}}>
-            <CustomMarker />
-          </Marker>
-          <Marker
-            coordinate={{latitude: 37.8025259, longitude: -122.4351431}}
-            flat
-            anchor={{x: 0.5, y: 0.5}}>
-            <CustomMarker />
-          </Marker>
-        </MapView>
-        <View style={{position: 'absolute', top: 50, left: 20}}>
-          <Text style={{color: '#ffff'}}>Overlay Component</Text>
+            <Marker
+              coordinate={{latitude: 37.7948605, longitude: -122.4596065}}
+              flat
+              anchor={{x: 0.5, y: 0.5}}>
+              <CustomMarker />
+            </Marker>
+            <Marker
+              coordinate={{latitude: 37.8025259, longitude: -122.4351431}}
+              flat
+              anchor={{x: 0.5, y: 0.5}}>
+              <CustomMarker />
+            </Marker>
+          </MapView>
+        </LinearGradient>
+
+        <View
+          style={{
+            ...StyleSheet.absoluteFillObject,
+            alignItems: 'center',
+            flexDirection: 'row',
+            marginLeft: '10%',
+          }}>
+          <RunningIcon />
+          <View style={{marginLeft: '5%'}}>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 9,
+                textTransform: 'uppercase',
+                fontWeight: 'normal',
+              }}>
+              distance
+            </Text>
+            <Text style={{color: '#fff', fontSize: 22, fontWeight: 'bold'}}>
+              8.450 m
+            </Text>
+            <Text
+              style={{
+                color: '#91CD4B',
+                fontSize: 11,
+                textTransform: 'uppercase',
+                fontWeight: 'bold',
+                letterSpacing: 1,
+              }}>
+              long run
+            </Text>
+          </View>
         </View>
       </View>
-      {/*<Text>test</Text>*/}
     </View>
   );
 };
