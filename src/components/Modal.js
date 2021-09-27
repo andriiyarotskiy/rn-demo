@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import BottomSheet from 'reanimated-bottom-sheet';
-import {Button, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {StyleSheet, useWindowDimensions, View, Text} from 'react-native';
 import {PanGestureHandler, ScrollView} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 // const screenHeight = Dimensions.get('window').height;
 
-const ModalDropDown = ({isModalVisible, toggleModal}) => {
-  const sheetRef = React.useRef(null);
+const ModalDropDown = ({sheetRef, children}) => {
+  // const sheetRef = React.useRef(null);
   const ref = React.useRef(null);
   const scrollRef = React.useRef(null);
 
@@ -30,16 +30,16 @@ const ModalDropDown = ({isModalVisible, toggleModal}) => {
     }
     const {translationY} = event.nativeEvent;
 
-    if (translationY > 0) {
+    if (translationY > 10) {
       sheetRef.current.snapTo(2);
     }
   };
 
   const _onScroll = ({nativeEvent}) => {
-    if (nativeEvent.contentOffset.y < 0 && !enable) {
+    if (nativeEvent.contentOffset.y < 10 && !enable) {
       setEnable(true);
     }
-    if (nativeEvent.contentOffset.y > 0 && enable) {
+    if (nativeEvent.contentOffset.y > 10 && enable) {
       sheetRef.current.snapTo(1);
       setEnable(false);
     }
@@ -62,7 +62,7 @@ const ModalDropDown = ({isModalVisible, toggleModal}) => {
         ref={scrollRef}
         onScroll={_onScroll}
         waitFor={enable ? ref : scrollRef}
-        scrollEventThrottle={40}>
+        scrollEventThrottle={16}>
         <PanGestureHandler
           enabled={enable}
           ref={ref}
@@ -70,9 +70,7 @@ const ModalDropDown = ({isModalVisible, toggleModal}) => {
           failOffsetY={-5}
           onGestureEvent={_onScrollDown}>
           <View>
-            {[1, 2, 3, 4, 5, 6, 7, 8].map(item => (
-              <View key={item.toString()} style={styles.item} />
-            ))}
+            {children}
           </View>
         </PanGestureHandler>
       </ScrollView>
@@ -80,28 +78,27 @@ const ModalDropDown = ({isModalVisible, toggleModal}) => {
   );
   return (
     <>
-      <View style={styles.container}>
-        <Button
-          onPress={() => {
-            sheetRef.current.snapTo(2);
-          }}
-          title="Hide Modal"
-        />
-        <Button
-          title="Open Bottom Sheet"
-          onPress={() => {
-            sheetRef.current.snapTo(0);
-          }}
-        />
-      </View>
-
+      {/*<View style={styles.container}>*/}
+      {/*<Button*/}
+      {/*  onPress={() => {*/}
+      {/*    sheetRef.current.snapTo(2);*/}
+      {/*  }}*/}
+      {/*  title="Hide Modal"*/}
+      {/*/>*/}
+      {/*<Button*/}
+      {/*  title="Open Bottom Sheet"*/}
+      {/*  onPress={() => {*/}
+      {/*    sheetRef.current.snapTo(0);*/}
+      {/*  }}*/}
+      {/*/>*/}
+      {/*</View>*/}
       <BottomSheet
         enabledInnerScrolling={true}
         enabledContentGestureInteraction={false}
         initialSnap={2}
         ref={sheetRef}
-        snapPoints={[450, testHeight, 0]}
-        borderRadius={10}
+        snapPoints={[450, testHeight * 0.9, 0]}
+        // borderRadius={25}
         renderContent={renderContent}
       />
     </>
@@ -112,22 +109,26 @@ export default ModalDropDown;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 50,
+    // flex: 1,
+    // marginTop: 50,
     backgroundColor: 'papayawhip',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   item: {
     alignSelf: 'center',
+    justifyContent: 'center',
     width: '90%',
-    height: 100,
+    height: 64,
     backgroundColor: 'grey',
     marginBottom: 20,
   },
   listContainer: {
-    backgroundColor: 'white',
+    marginHorizontal: '4%',
+    backgroundColor: '#242731',
     padding: 16,
     height: '100%',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
   },
 });

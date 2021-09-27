@@ -2,7 +2,6 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import ProfileScreen from '../Screens/ProfileScreen';
 import TestCalendarScreen from '../Screens/TestCalendarScreen';
-import TestMapScreen from '../Screens/TestMapScreen';
 import HomeScreen from '../Screens/Home';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
