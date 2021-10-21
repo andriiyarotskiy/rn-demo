@@ -12,6 +12,8 @@ import PieProgressBar from '../components/PieProgressBar';
 import MapDisplay from './MapDisplay';
 import HistoryItemScreen from './detailedHistory/HistoryItemScreen';
 
+//commit 1
+
 const HomeScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
