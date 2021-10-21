@@ -10,6 +10,7 @@ import {
 import ModalDropDown from '../components/Modal';
 import PieProgressBar from '../components/PieProgressBar';
 import MapDisplay from './MapDisplay';
+import HistoryItemScreen from './detailedHistory/HistoryItemScreen';
 
 const HomeScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -55,19 +56,23 @@ const HomeScreen = () => {
           );
         }}
       />
+      {/*<ModalDropDown sheetRef={sheetRef}>*/}
+      {/*  <View style={styles.progressContainer}>*/}
+      {/*    <PieProgressBar currentProgress={80} title="aerobic" />*/}
+      {/*    <PieProgressBar currentProgress={50} title="anaerobic" />*/}
+      {/*  </View>*/}
+      {/*  <MapDisplay />*/}
+      {/*  {[1, 2, 3, 4, 5, 6, 7, 8].map(item => (*/}
+      {/*    <View key={item.toString()} style={styles.item}>*/}
+      {/*      <Text style={{color: '#fff', fontSize: 25, textAlign: 'center'}}>*/}
+      {/*        {item}*/}
+      {/*      </Text>*/}
+      {/*    </View>*/}
+      {/*  ))}*/}
+      {/*</ModalDropDown>*/}
+
       <ModalDropDown sheetRef={sheetRef}>
-        <View style={styles.progressContainer}>
-          <PieProgressBar currentProgress={80} title="aerobic" />
-          <PieProgressBar currentProgress={50} title="anaerobic" />
-        </View>
-        <MapDisplay />
-        {[1, 2, 3, 4, 5, 6, 7, 8].map(item => (
-          <View key={item.toString()} style={styles.item}>
-            <Text style={{color: '#fff', fontSize: 25, textAlign: 'center'}}>
-              {item}
-            </Text>
-          </View>
-        ))}
+        <HistoryItemScreen />
       </ModalDropDown>
     </View>
   );
